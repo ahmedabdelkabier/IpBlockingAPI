@@ -1,0 +1,6 @@
+@IpBlocking_HostAddress = http://localhost:5116
+
+GET {{IpBlocking_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

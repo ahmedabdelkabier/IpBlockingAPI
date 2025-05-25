@@ -1,0 +1,38 @@
+[
+    {
+        "code":"US",
+        "name":"United States"
+    },
+    {
+        "code":"CA",
+        "name":"Canada"
+    },
+    {
+        "code":"MX",
+        "name":"Mexico"
+    },
+    {
+        "code":"GB",
+        "name":"United Kingdom"
+    },
+    {
+        "code":"FR",
+        "name":"France"
+    },
+    {
+        "code":"DE",
+        "name":"Germany"
+    },
+    {
+        "code":"JP",
+        "name":"Japan"
+    },
+    {
+        "code":"CN",
+        "name":"China"
+    },
+    {
+        "code":"IN",
+        "name":"India"
+    }
+]
