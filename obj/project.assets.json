@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "Countries/2.0.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net461/Countries.dll": {}
+        },
+        "runtime": {
+          "lib/net461/Countries.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/8.0.16": {
         "type": "package",
         "dependencies": {
@@ -1174,6 +1183,21 @@
     }
   },
   "libraries": {
+    "Countries/2.0.0.1": {
+      "sha512": "79xFeRES2rlql3v4g+qMKgJzssYLqa3Uvzs8pAOCh7fK6pY6Yxbdm3F644jOK63fYGdh+1kbGm0ZGzYwyXMPZw==",
+      "type": "package",
+      "path": "countries/2.0.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "countries.2.0.0.1.nupkg.sha512",
+        "countries.nuspec",
+        "lib/net40/Countries.dll",
+        "lib/net45/Countries.dll",
+        "lib/net46/Countries.dll",
+        "lib/net461/Countries.dll"
+      ]
+    },
     "Microsoft.AspNetCore.OpenApi/8.0.16": {
       "sha512": "jeZBYi62BKGRZXEkXAr9hj1L6u71HRKE7EPaZBouF1xmKdQIX7GO5oSRLTQLQmmST0y/aaI+Mr4OzyyRjmBFog==",
       "type": "package",
@@ -4044,6 +4068,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Countries >= 2.0.0.1",
       "Microsoft.AspNetCore.OpenApi >= 8.0.16",
       "Microsoft.Extensions.Http >= 9.0.5",
       "Swashbuckle.AspNetCore >= 6.6.2",
@@ -4087,6 +4112,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Countries": {
+            "target": "Package",
+            "version": "[2.0.0.1, )"
+          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[8.0.16, )"
@@ -4126,5 +4155,17 @@
         "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.116/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Countries 2.0.0.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Countries",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

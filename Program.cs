@@ -174,15 +174,15 @@ app.MapPost("countries/temporal-block", (HttpContext context, string code, int d
 {
     
     var ip = context.Connection.RemoteIpAddress?.ToString();
-
-    if (CountriesCollection.isValidCountryCode(code))
+   
+    if (!CountriesCollection.isValidCountryCode(code))
         return Results.BadRequest("Invalid Country Code");
 
     if (duration < 1 || duration > 1440)
         return Results.BadRequest("Duration must be between 1 and 1440 minutes.");
 
     var entry = CountriesCollection.countries.FirstOrDefault(c => c.Key.Code == code);
-    if (!entry.Equals(default(KeyValuePair<Country, BlockedInfo>)))
+    if (entry.Equals(default(KeyValuePair<Country, BlockedInfo>)))
     {
         return Results.Conflict($"Country with code {code} is already blocked.");
     }
