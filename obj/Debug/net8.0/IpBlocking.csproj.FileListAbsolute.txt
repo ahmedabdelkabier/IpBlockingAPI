@@ -46,3 +46,5 @@
 /home/ahmedabdelkabier/Desktop/IpBlocking/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
 /home/ahmedabdelkabier/Desktop/IpBlocking/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
 /home/ahmedabdelkabier/Desktop/IpBlocking/bin/Debug/net8.0/data.json
+/home/ahmedabdelkabier/Desktop/IpBlocking/obj/Debug/net8.0/IpBlocking.sourcelink.json
+/home/ahmedabdelkabier/Desktop/IpBlocking/bin/Debug/net8.0/Countries.dll
