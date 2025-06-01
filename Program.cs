@@ -14,7 +14,7 @@ builder.Services.AddRateLimiter(options =>
 {
     options.AddPolicy("ipLookup", context =>
         RateLimitPartition.GetFixedWindowLimiter(
-            partitionKey: context.Connection.RemoteIpAddress?.ToString(),
+            partitionKey: GetClientIp(context),
             factory: _ => new()
             {
                 PermitLimit = 30, 
@@ -53,11 +53,11 @@ string GetClientIp(HttpContext context)
         return forwardedIp.ToString().Split(',')[0].Trim();
     
     // Fallback to connection IP
-    return context.Connection.RemoteIpAddress?.ToString() ?? "127.0.0.1";
+    return context.Connection.RemoteIpAddress?.ToString()?? "127.0.0.1";
 }
 app.Use(async (context, next) =>
 {
-    var ip = context.Connection.RemoteIpAddress?.ToString();
+    var ip = GetClientIp(context);
     
     if (!string.IsNullOrEmpty(ip))
     {
@@ -193,7 +193,7 @@ app.MapGet("/logs/blocked-attemps", async (int? pageNumber, int? pageSize) =>
 app.MapPost("countries/temporal-block", (HttpContext context, string code, int duration = 1) =>
 {
     
-    var ip = context.Connection.RemoteIpAddress?.ToString();
+    var ip = GetClientIp(context);
    
     if (!CountriesCollection.isValidCountryCode(code))
         return Results.BadRequest("Invalid Country Code");
