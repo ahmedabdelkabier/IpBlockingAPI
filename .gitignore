@@ -1,0 +1,8 @@
+# IDE files
+.vscode/
+.idea/
+*.vs/
+
+
+# PDF files
+*.pdf
