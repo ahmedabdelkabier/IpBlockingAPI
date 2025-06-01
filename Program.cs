@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text;
 using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.HttpOverrides;
 using MinimalBlockingAPI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,25 @@ if (app.Environment.IsDevelopment())
 app.UseRateLimiter();
 app.UseHttpsRedirection();
 
+// Add to Program.cs before other middleware
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
+// Modified IP detection
+string GetClientIp(HttpContext context)
+{
+    // Check headers first (cloudflare, railway, etc)
+    if (context.Request.Headers.TryGetValue("CF-Connecting-IP", out var cloudflareIp))
+        return cloudflareIp.ToString();
+    
+    if (context.Request.Headers.TryGetValue("X-Forwarded-For", out var forwardedIp))
+        return forwardedIp.ToString().Split(',')[0].Trim();
+    
+    // Fallback to connection IP
+    return context.Connection.RemoteIpAddress?.ToString() ?? "127.0.0.1";
+}
 app.Use(async (context, next) =>
 {
     var ip = context.Connection.RemoteIpAddress?.ToString();
@@ -104,7 +124,7 @@ app.MapDelete("/unblock/{code}", (string code) =>
 
 app.MapGet("/check", async (HttpContext context) =>
 {
-    var ip = context.Connection.RemoteIpAddress?.MapToIPv4()?.ToString();
+    var ip = GetClientIp(context);
     Console.WriteLine($"Ip Adress is {ip}");
     if (string.IsNullOrEmpty(ip))
     {
