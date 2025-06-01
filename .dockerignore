@@ -1,0 +1,42 @@
+# Directories
+**/bin/
+**/obj/
+**/node_modules/
+**/.git/
+**/.vs/
+**/.vscode/
+**/.idea/
+**/publish/
+**/test-results/
+
+# Files
+*.Dockerfile
+*.dockerignore
+*.md
+*.log
+*.nupkg
+*.swp
+*.sublime-*
+*.userprefs
+*.pid
+*.pid.lock
+
+# Environment files (except production)
+.env
+!.env.production
+
+# Sensitive files
+**/*.pfx
+**/*.pem
+**/*.cer
+**/appsettings.Development.json
+**/secrets.json
+
+# Build outputs
+**/*.zip
+**/*.tar
+**/*.gz
+
+# IDE specific
+**/.DS_Store
+**/Thumbs.db

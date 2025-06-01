@@ -1,0 +1,9 @@
+# IDE files
+.vscode/
+.idea/
+*.vs/
+
+
+# PDF files
+*.pdf
+BD-Assignment_2025.pdf
