@@ -104,8 +104,8 @@ app.MapDelete("/unblock/{code}", (string code) =>
 
 app.MapGet("/check", async (HttpContext context) =>
 {
-    var ip = context.Connection.RemoteIpAddress?.ToString();
-
+    var ip = context.Connection.RemoteIpAddress?.MapToIPv4()?.ToString();
+    Console.WriteLine($"Ip Adress is {ip}");
     if (string.IsNullOrEmpty(ip))
     {
         return Results.BadRequest("Could not determine client IP address.");
