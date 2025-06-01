@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IpBlocking")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9f3e114faa62eb1b05fd17176f51517243d7cb0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67ae6e096e2567dc23a55f01f4adb6ad99fc907d")]
 [assembly: System.Reflection.AssemblyProductAttribute("IpBlocking")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IpBlocking")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
