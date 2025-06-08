@@ -211,8 +211,7 @@ app.MapPost("countries/temporal-block", (HttpContext context, string code, int d
     if (duration < 1 || duration > 1440)
         return Results.BadRequest("Duration must be between 1 and 1440 minutes.");
 
-    var entry = CountriesCollection.countries.FirstOrDefault(c => c.Key.Code == code);
-    if (entry.Equals(default(KeyValuePair<Country, BlockedInfo>)))
+    if (CountriesCollection.countries.Any(c => c.Key.Code == code))
     {
         return Results.Conflict($"Country with code {code} is already blocked.");
     }
