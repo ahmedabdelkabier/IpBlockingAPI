@@ -48,17 +48,27 @@ string GetClientIp(HttpContext context)
     // Check headers first (cloudflare, railway, etc)
     if (context.Request.Headers.TryGetValue("CF-Connecting-IP", out var cloudflareIp))
         return cloudflareIp.ToString();
-    
+
     if (context.Request.Headers.TryGetValue("X-Forwarded-For", out var forwardedIp))
         return forwardedIp.ToString().Split(',')[0].Trim();
-    
+
     // Fallback to connection IP
-    return context.Connection.RemoteIpAddress?.ToString()?? "127.0.0.1";
+    return context.Connection.RemoteIpAddress?.ToString() ?? "127.0.0.1";
 }
+
 app.Use(async (context, next) =>
 {
+    var path = context.Request.Path.Value?.ToLowerInvariant();
+
+    // Exclude /check and /logs/blocked-attemps endpoints
+    if (path == "/check" || path == "/logs/blocked-attemps")
+    {
+        await next();
+        return;
+    }
+
     var ip = GetClientIp(context);
-    
+
     if (!string.IsNullOrEmpty(ip))
     {
         var countryCode = await CountriesCollection.getCountryCode(ip);
@@ -124,8 +134,8 @@ app.MapDelete("/unblock/{code}", (string code) =>
 
 app.MapGet("/check", async (HttpContext context) =>
 {
-    var ip = GetClientIp(context);
-    Console.WriteLine($"Ip Adress is {ip}");
+    //var ip = GetClientIp(context);
+    var ip = "51.195.190.235";
     if (string.IsNullOrEmpty(ip))
     {
         return Results.BadRequest("Could not determine client IP address.");
@@ -134,6 +144,7 @@ app.MapGet("/check", async (HttpContext context) =>
     if (CountriesCollection.countries.Any(c => c.Key.Code == countryCode))
     {
         BlockedAttempsCollection.addNewBlockedAttempt(new BlockedAttempt(ip, countryCode, "Blocked"));
+        return Results.Problem($"Access from {countryCode} is not allowed", statusCode: 403);
     }   
     return Results.Ok(new { CountryCode = countryCode });
 });
