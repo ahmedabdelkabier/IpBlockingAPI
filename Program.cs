@@ -134,8 +134,7 @@ app.MapDelete("/unblock/{code}", (string code) =>
 
 app.MapGet("/check", async (HttpContext context) =>
 {
-    //var ip = GetClientIp(context);
-    var ip = "51.195.190.235";
+    var ip = GetClientIp(context);
     if (string.IsNullOrEmpty(ip))
     {
         return Results.BadRequest("Could not determine client IP address.");
