@@ -65,9 +65,12 @@ namespace MinimalBlockingAPI
 
         public static bool deleteBlockedCountry(string code)
         {
-
-            var countryKey = new Country(code, ""); 
-            return countries.TryRemove(countryKey, out _);
+            var country = countries.Keys.FirstOrDefault(c => c.Code.Equals(code, StringComparison.OrdinalIgnoreCase));
+            if (country != null)
+            {
+                return countries.TryRemove(country, out _);
+            }
+            return false;
         }
 
         public static async Task<string> getCountryCode(string? ip)
